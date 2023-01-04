@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -35,22 +33,23 @@ public class UserController {
 
     // Saves user to users table
     @PostMapping("/signup")
-    public String saveUser(@ModelAttribute User user, HttpServletRequest httpServletRequest) {
+//    public String saveUser(@ModelAttribute User user, HttpServletRequest httpServletRequest) {
+    public String saveUser(@ModelAttribute User user) {
         String plainPassword = user.getPassword();
         // Hashing password
         String hash = passwordEncoder.encode(user.getPassword());
         // Setting user password to the hash and saving user to table
         user.setPassword(hash);
         userDao.save(user);
-        authWithHttpServletRequest(httpServletRequest, user.getUsername(), plainPassword);
+//        authWithHttpServletRequest(httpServletRequest, user.getUsername(), plainPassword);
         return "redirect:/messages";
     }
 
-    private void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
-        try {
-            request.login(username, password);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
+//        try {
+//            request.login(username, password);
+//        } catch (ServletException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

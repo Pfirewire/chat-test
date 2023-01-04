@@ -21,7 +21,7 @@ public class SecurityConfiguration {
                 // Login configuration
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/messages")
+                .defaultSuccessUrl("/messages", true)
                 .permitAll()
                 // Logout configuration
                 .and()
@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/login?logout")
                 // Pages only viewable when logged in
                 .and()
+        /////////////////////////////OLD STYLE///////////////////////////
                 .authorizeRequests()
                 .antMatchers(
                         "/messages"
@@ -41,6 +42,19 @@ public class SecurityConfiguration {
                         "/"
                 )
                 .permitAll()
+
+                ////////////////////////////////NEW WAY/////////////////////
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers(
+//                                "/messages"
+//                        )
+//                        .authenticated()
+//                        // Pages viewable without logging in
+//                        .requestMatchers(
+//                                "/"
+//                        )
+//                        .permitAll()
+//                )
         ;
         return http.build();
     }
