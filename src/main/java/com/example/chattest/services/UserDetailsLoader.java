@@ -1,8 +1,8 @@
-package com.example.services;
+package com.example.chattest.services;
 
-import com.example.models.User;
-import com.example.models.UserWithRoles;
-import com.example.repositories.UserRepository;
+import com.example.chattest.models.User;
+import com.example.chattest.models.UserWithRoles;
+import com.example.chattest.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

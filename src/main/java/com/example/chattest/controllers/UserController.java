@@ -1,7 +1,7 @@
-package com.example.controllers;
+package com.example.chattest.controllers;
 
-import com.example.models.User;
-import com.example.repositories.UserRepository;
+import com.example.chattest.models.User;
+import com.example.chattest.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

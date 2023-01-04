@@ -1,6 +1,6 @@
-package com.example.repositories;
+package com.example.chattest.repositories;
 
-import com.example.models.User;
+import com.example.chattest.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
