@@ -36,6 +36,8 @@ public class ChatController {
 
     @MessageMapping("/chat/{roomId}/send")
     public void sendMessage(@DestinationVariable Long roomId, @Payload Message chatMessage) throws JsonProcessingException {
+        User user = userDao.findById(Utils.currentUserId()).get();
+        chatMessage.setSender(user);
         ObjectMapper mapper = new ObjectMapper();
         System.out.println("inside sendMessage");
         System.out.println(mapper.writeValueAsString(chatMessage));

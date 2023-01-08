@@ -46,7 +46,10 @@ $(async function() {
             Chat.messageTextBox.val("");
         },
         onMessageReceived(payload) {
+            console.log("Inside onMessageReceived!");
             let message = JSON.parse(payload.body);
+            console.log("Message received:");
+            console.log(message);
             if(message.messageType === 'JOIN') {
                 Print.joinMessage(message);
             } else if (message.messageType === 'LEAVE') {
@@ -59,13 +62,13 @@ $(async function() {
 
     const Print = {
         joinMessage(message) {
-            console.log(`${message.sender} has joined the chat!`);
+            console.log(`${message.sender.username} has joined the chat!`);
         },
         chatMessage(message) {
-            console.log(`${message.sender}: ${message.content}`);
+            console.log(`${message.sender.username}: ${message.text}`);
         },
         leaveMessage(message) {
-            console.log(`${message.sender} left :(`);
+            console.log(`${message.sender.username} left :(`);
         }
     }
 
