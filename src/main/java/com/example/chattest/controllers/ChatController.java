@@ -40,14 +40,18 @@ public class ChatController {
         Long currentRoomId = (Long) headerAccessor.getSessionAttributes().put("room_id", roomId);
         if(currentRoomId != null) {
             Message leaveMessage = new Message();
-
+            leaveMessage.setMessageType(Message.MessageType.LEAVE);
+            leaveMessage.setSender(chatMessage.getSender());
+            messagingTemplate.convertAndSend(format("/room/%s", currentRoomId), leaveMessage);
         }
+        headerAccessor.getSessionAttributes().put("name", chatMessage.getSender());
+        messagingTemplate.convertAndSend(format("/room/%s", roomId), chatMessage);
     }
 
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public OutputMessage send(Message message) throws Exception {
         Timestamp time = new Timestamp(new Date().getTime());
-        return new OutputMessage(userDao.findByUsername(message.getFrom()), message.getText(), time);
+        return new OutputMessage(message.getSender(), message.getText(), time);
     }
 }

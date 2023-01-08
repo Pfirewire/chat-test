@@ -19,16 +19,16 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User from;
+    private User sender;
 
-    @Column(nullable = false)
+    @Column
     private String text;
 
     public Message() {
     }
 
-    public Message(User from, String text) {
-        this.from = from;
+    public Message(User sender, String text) {
+        this.sender = sender;
         this.text = text;
     }
 
@@ -48,12 +48,12 @@ public class Message {
         this.messageType = messageType;
     }
 
-    public User getFrom() {
-        return from;
+    public User getSender() {
+        return sender;
     }
 
-    public void setFrom(User from) {
-        this.from = from;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     public String getText() {
