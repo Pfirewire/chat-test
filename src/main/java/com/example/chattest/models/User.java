@@ -3,6 +3,7 @@ package com.example.chattest.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -22,6 +23,9 @@ public class User {
     @Column(nullable = false)
     @JsonIgnore
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
+    private Set<OutputMessage> messages;
 
     public User() {
     }
@@ -63,5 +67,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @JsonIgnore
+    public Set<OutputMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<OutputMessage> messages) {
+        this.messages = messages;
     }
 }

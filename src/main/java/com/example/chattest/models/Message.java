@@ -2,18 +2,9 @@ package com.example.chattest.models;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "messages")
 public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String from;
-
-    @Column(nullable = false)
     private String text;
 
     public Message() {
