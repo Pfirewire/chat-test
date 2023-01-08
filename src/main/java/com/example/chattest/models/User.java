@@ -27,6 +27,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
     private Set<OutputMessage> messages;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_room",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "room_id")}
+    )
+    private Set<ChatRoom> rooms;
+
     public User() {
     }
 
