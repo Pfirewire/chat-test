@@ -5,6 +5,7 @@ import com.example.chattest.repositories.ChatRoomRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -16,11 +17,18 @@ public class ChatroomController {
         this.chatRoomDao = chatRoomDao;
     }
 
-    @GetMapping("/room/create")
-    public String createChatRoom(@RequestParam(name = "create-chat-room") String name, Model model) {
+    @PostMapping("/room/create")
+    public String createChatRoom(@RequestParam(name = "chatroom-name") String name, Model model) {
         ChatRoom newRoom = new ChatRoom(name);
         chatRoomDao.save(newRoom);
         model.addAttribute("room", newRoom);
+        return "room/chat";
+    }
+
+    @PostMapping("/room/join")
+    public String joinChatRoom(@RequestParam(name = "chatroom-name") String name, Model model) {
+        ChatRoom room = chatRoomDao.findByName(name);
+        model.addAttribute("room", room);
         return "room/chat";
     }
 }

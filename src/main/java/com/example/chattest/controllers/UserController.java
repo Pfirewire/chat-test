@@ -42,7 +42,7 @@ public class UserController {
         user.setPassword(hash);
         userDao.save(user);
 //        authWithHttpServletRequest(httpServletRequest, user.getUsername(), plainPassword);
-        return "redirect:/messages";
+        return "messages";
     }
 
 //    private void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {

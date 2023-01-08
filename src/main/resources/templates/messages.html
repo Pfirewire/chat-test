@@ -7,11 +7,14 @@
 <body>
 <nav th:replace="partials :: siteBar"></nav>
 <br><br><br><br>
-<h1>Message Board:</h1>
-
-<div id="message-container"></div>
-<input type="text">
-<button>Send</button>
+<form th:method="POST" th:action="@{/room/create}">
+    <input type="text" name="chatroom-name" placeholder="Chatroom Name">
+    <button type="submit">Create Room</button>
+</form>
+<form th:method="POST" th:action="@{/room/join}">
+    <input type="text" name="chatroom-name" placeholder="Chatroom Name">
+    <button type="submit">Join Room</button>
+</form>
 
 <div th:replace="partials :: scripts"></div>
 </body>

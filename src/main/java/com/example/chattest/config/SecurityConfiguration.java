@@ -32,7 +32,7 @@ public class SecurityConfiguration {
         /////////////////////////////OLD STYLE///////////////////////////
                 .authorizeRequests()
                 .antMatchers(
-                        "/messages", "/secured/**/**", "/secured/**/**/**", "/secured/socket", "/secured/success"
+                        "/messages", "/room/*", "/secured/**/**", "/secured/**/**/**", "/secured/socket", "/secured/success"
                 )
                 .authenticated()
                 // Pages viewable without logging in
