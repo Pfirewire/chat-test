@@ -25,7 +25,7 @@ public class User {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
-    private Set<OutputMessage> messages;
+    private Set<Message> messages;
 
     @ManyToMany
     @JoinTable(
@@ -78,11 +78,19 @@ public class User {
     }
 
     @JsonIgnore
-    public Set<OutputMessage> getMessages() {
+    public Set<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<OutputMessage> messages) {
+    public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public Set<ChatRoom> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Set<ChatRoom> rooms) {
+        this.rooms = rooms;
     }
 }

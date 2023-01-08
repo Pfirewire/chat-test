@@ -2,6 +2,8 @@ package com.example.chattest.controllers;
 
 import com.example.chattest.models.ChatRoom;
 import com.example.chattest.repositories.ChatRoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
