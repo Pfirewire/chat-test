@@ -19,7 +19,7 @@ public class ChatroomController {
         this.chatRoomDao = chatRoomDao;
     }
 
-    @PostMapping("/room/create")
+    @GetMapping("/room/create")
     public String createChatRoom(@RequestParam(name = "chatroom-name") String name, Model model) {
         ChatRoom newRoom = new ChatRoom(name);
         chatRoomDao.save(newRoom);
@@ -27,7 +27,7 @@ public class ChatroomController {
         return "room/chat";
     }
 
-    @PostMapping("/room/join")
+    @GetMapping("/room/join")
     public String joinChatRoom(@RequestParam(name = "chatroom-name") String name, Model model) {
         ChatRoom room = chatRoomDao.findByName(name);
         model.addAttribute("room", room);

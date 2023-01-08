@@ -2,7 +2,11 @@ package com.example.chattest.controllers;
 
 import com.example.chattest.models.Message;
 import com.example.chattest.models.OutputMessage;
+import com.example.chattest.models.User;
 import com.example.chattest.repositories.UserRepository;
+import com.example.chattest.utils.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -31,21 +35,26 @@ public class ChatController {
 
 
     @MessageMapping("/chat/{roomId}/send")
-    public void sendMessage(@DestinationVariable Long roomId, @Payload Message chatMessage) {
-        messagingTemplate.convertAndSend(format("/room/%s", roomId), chatMessage);
+    public void sendMessage(@DestinationVariable Long roomId, @Payload Message chatMessage) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("inside sendMessage");
+        System.out.println(mapper.writeValueAsString(chatMessage));
+        messagingTemplate.convertAndSend(format("/secured/room/%s", roomId), chatMessage);
     }
 
     @MessageMapping("/chat/{roomId}/add-user")
     public void addUser(@DestinationVariable Long roomId, @Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        User user = userDao.findById(Utils.currentUserId()).get();
+        chatMessage.setSender(user);
         Long currentRoomId = (Long) headerAccessor.getSessionAttributes().put("room_id", roomId);
         if(currentRoomId != null) {
             Message leaveMessage = new Message();
             leaveMessage.setMessageType(Message.MessageType.LEAVE);
-            leaveMessage.setSender(chatMessage.getSender());
-            messagingTemplate.convertAndSend(format("/room/%s", currentRoomId), leaveMessage);
+            leaveMessage.setSender(user);
+            messagingTemplate.convertAndSend(format("/secured/room/%s", currentRoomId), leaveMessage);
         }
         headerAccessor.getSessionAttributes().put("name", chatMessage.getSender());
-        messagingTemplate.convertAndSend(format("/room/%s", roomId), chatMessage);
+        messagingTemplate.convertAndSend(format("/secured/room/%s", roomId), chatMessage);
     }
 
     @MessageMapping("/chat")

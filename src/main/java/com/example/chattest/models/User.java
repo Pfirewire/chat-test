@@ -24,10 +24,10 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private Set<Message> messages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_room",
             joinColumns = {@JoinColumn(name = "user_id")},

@@ -7,11 +7,11 @@
 <body>
 <nav th:replace="partials :: siteBar"></nav>
 <br><br><br><br>
-<form th:method="POST" th:action="@{/room/create}">
+<form th:method="GET" th:action="@{/room/create}">
     <input type="text" name="chatroom-name" placeholder="Chatroom Name">
     <button type="submit">Create Room</button>
 </form>
-<form th:method="POST" th:action="@{/room/join}">
+<form th:method="GET" th:action="@{/room/join}">
     <input type="text" name="chatroom-name" placeholder="Chatroom Name">
     <button type="submit">Join Room</button>
 </form>

@@ -3,16 +3,20 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="partials :: headFragment('Chat Room')"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+<div name="_csrf" data-th-content="${_csrf.token}">
 <nav th:replace="partials :: siteBar"></nav>
 <br><br><br><br>
-<div hidden th:text="${room.id}"></div>
+<div hidden id="room-id" th:text="${room.id}"></div>
 <h1>Chat Room: <span th:text="${room.name}"></span></h1>
-
-<div id="message-container"></div>
-<input type="text">
-<button>Send</button>
+<br>
+<div id="messages-container"></div>
+<br>
+<input type="text" id="message-text">
+<button id="send-button">Send</button>
 
 <div th:replace="partials :: scripts"></div>
 <script th:src="@{/js/chat.js}"></script>
